@@ -529,7 +529,7 @@ class Command extends Component
      *          ],
      *          'tokenizer' => [
      *              'ngram_tokenizer' => [
-     *                  'type' => 'nGram',
+     *                  'type' => 'ngram',
      *                  'min_gram' => 3,
      *                  'max_gram' => 10,
      *                  'token_chars' => ['letter', 'digit', 'whitespace', 'punctuation', 'symbol']
