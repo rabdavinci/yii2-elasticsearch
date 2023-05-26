@@ -231,6 +231,12 @@ class Query extends Component implements QueryInterface
      */
     public $options = [];
     /**
+     * @var array list of options that will passed to parts created by this query and will be
+     * placed to json part of query.
+     * @see Command::$parts
+     */
+    public $jsonOptions = [];
+    /**
      * @var bool Enables explanation for each hit on how its score was computed.
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-explain.html
      * @since 2.0.5
@@ -859,6 +865,23 @@ class Query extends Component implements QueryInterface
     }
 
     /**
+     * Sets the options to be passed to the command created by this query (json part)
+     * @param array $options the options to be set.
+     * @return $this the query object itself
+     * @throws InvalidParamException if $options is not an array
+     * @see Command::$parts
+     */
+    public function jsonOptions($options)
+    {
+        if (!is_array($options)) {
+            throw new InvalidArgumentException('Array parameter expected, ' . gettype($options) . ' received.');
+        }
+
+        $this->jsonOptions = $options;
+        return $this;
+    }
+
+    /**
      * Adds more options, overwriting existing options.
      * @param array $options the options to be added.
      * @return $this the query object itself
@@ -873,6 +896,23 @@ class Query extends Component implements QueryInterface
         }
 
         $this->options = array_merge($this->options, $options);
+        return $this;
+    }
+
+    /**
+     * Adds more options, overwriting existing options.
+     * @param array $options the options to be added.
+     * @return $this the query object itself
+     * @throws InvalidParamException if $options is not an array
+     * @see jsonOptions()
+     */
+    public function addJsonOptions($options)
+    {
+        if (!is_array($options)) {
+            throw new InvalidArgumentException('Array parameter expected, ' . gettype($options) . ' received.');
+        }
+
+        $this->jsonOptions = array_merge($this->jsonOptions, $options);
         return $this;
     }
 

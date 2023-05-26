@@ -114,6 +114,7 @@ class QueryBuilder extends BaseObject
         if (!empty($sort)) {
             $parts['sort'] = $sort;
         }
+        $parts = array_merge($parts, $query->jsonOptions);
 
         $options = $query->options;
         if ($query->timeout !== null) {
